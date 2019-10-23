@@ -26,3 +26,14 @@ decr(X) -> X - 1.
 %% hhfuns:map(fun hhfuns:incr/1, L).
 %% hhfuns:map(fun hhfuns:decr/1, L).
 
+%%Anonymous functions
+%%Fn = fun() -> a end.
+%%Fn().
+%% PrepareAlarm = fun(Room) ->
+%% io:format("Alarm set in ~s. ~n", [Room]),
+%% fun() -> io:format("Alarm tripped in ~s! Call Batman! ~n", [Room]) end
+%% end.
+
+%% AlarmReady = PrepareAlarm("bathroom").
+%% AlarmReady().
+
