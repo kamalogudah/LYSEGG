@@ -37,3 +37,55 @@ decr(X) -> X - 1.
 %% AlarmReady = PrepareAlarm("bathroom").
 %% AlarmReady().
 
+a() ->
+  Secret = "pony",
+fun() -> Secret end.
+
+b(F) ->
+  "a/0's password is " ++ F().
+
+
+%% hhfuns:b(hhfuns:a()).
+
+
+%%Base = 2.
+%% PowerOfTwo = fun(X) -> math:pow(Base, X) end.
+%% hhfuns:map(PowerOfTwo, [1,2,3,4,5,6]).
+
+base() ->
+  A = 1,
+  (fun(A) -> A = 2 end)(2).
+
+%% Only keep even numbers
+even(L) -> lists:reverse(even(L, [])).
+
+even([], Acc) -> Acc;
+even([H|T], Acc) when H rem 2 == 0 ->
+  even(T, [H|Acc]);
+even([_|T], Acc) ->
+  even(T, Acc).
+
+%% only keep men older than 60.
+old_men(L) -> lists:reverse(old_men(L, [])).
+
+old_men([], Acc) -> Acc;
+old_men([Person = {male, Age}| People], Acc) when Age > 60 ->
+  old_men(People, [Person|Acc]);
+
+old_men([_|People], Acc) ->
+  old_men(People, Acc).
+
+filter(Pred, L) -> lists:reverse(filter(Pred, L, [])).
+
+filter(_, [], Acc) -> Acc;
+
+filter(Pred, [H|T], Acc) ->
+  case Pred(H) of
+    true -> filter(Pred, T, [H|Acc]);
+    false -> filter(Pred, T, Acc)
+  end.
+%% Numbers = lists:seq(1, 10).
+%% hhfuns:filter(fun(X) -> X rem 2 == 0 end, Numbers).
+%% People = [{male, 45}, {female, 67}, {male, 66}, {female, 12}, {unkwown, 174}, {male, 74}].
+%% hhfuns:filter(fun({Gender, Age}) -> Gender == male andalso Age > 60 end, People).
+
