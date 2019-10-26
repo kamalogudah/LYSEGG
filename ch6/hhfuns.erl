@@ -89,3 +89,28 @@ filter(Pred, [H|T], Acc) ->
 %% People = [{male, 45}, {female, 67}, {male, 66}, {female, 12}, {unkwown, 174}, {male, 74}].
 %% hhfuns:filter(fun({Gender, Age}) -> Gender == male andalso Age > 60 end, People).
 
+%% Find the maximun of a list.
+max([H|T]) -> max2(T, H).
+
+max2([], Max) -> Max;
+max2([H|T], Max) when H > Max -> max2(T, H);
+max2([_|T], Max) -> max2(T, Max).
+
+%% Find the minimum in a list
+min([H|T]) -> min(T, H).
+
+min2([], Min) -> Min;
+min2([H|T], Min) when H < Min -> min2(T, H);
+min2([_|T], Min) -> min2(T, Min).
+
+%% Find the sum if all elements of a list.
+sum(L) -> sum(L,0).
+sum([], Sum) -> Sum;
+sum([H|T], Sum) -> sum(T, H + Sum).
+
+fold(_, Start, []) -> Start;
+fold(F, Start, [H|T]) -> fold(F, F(H, Start), T).
+%% [H|T] = [1,7,3,5,9,0,2,3].
+%% hhfuns:fold(fun(A,B) when A > B -> A; (_, B) -> B end, H, T). MAX
+%% hhfuns:fold(fun(A,B) when A > B -> A; (_, B) -> B end, H, T). MIN
+%% hhfuns:fold(fun(A,B) -> A + B end, 0, lists:seq(1,10)).
